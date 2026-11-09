@@ -1,18 +1,50 @@
 # Online Flat Rental Backend
 
-A robust Spring Boot backend application for managing online flat rental operations, including user management, property listings, tenant handling, and booking workflows.
+<div align="center">
 
-## Overview
+![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-2.7.4-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![REST API](https://img.shields.io/badge/API-REST-FF6B6B?style=for-the-badge&logo=fastapi&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-Build-CA4245?style=for-the-badge&logo=apachemaven&logoColor=white)
 
-This project provides a backend service for a flat rental platform where:
+</div>
 
-- landlords can manage their properties
+A Java Spring Boot backend designed for a digital flat rental platform, focused on managing users, landlords, tenants, property listings, and booking workflows through a clean REST API architecture.
+
+## Project Overview
+
+This application demonstrates a production-style backend for an online rental ecosystem where:
+
+- landlords can manage rental properties
 - tenants can be created and validated
-- flats can be listed, updated, and removed
-- availability can be tracked
-- bookings can be created and managed
+- flat listings can be searched and updated
+- booking operations can be tracked and managed
+- database interactions are handled through JPA and PostgreSQL
 
-The application follows a layered architecture using controllers, services, repositories, and JPA entities.
+The project follows a layered architecture built around controllers, services, repositories, entities, and exception handling to keep the business logic modular and maintainable.
+
+## Why This Project
+
+This repository was built to showcase backend engineering skills in:
+
+- Java enterprise application development
+- Spring Boot application structure
+- REST API design and implementation
+- JPA persistence and relational modeling
+- Clean service-oriented architecture
+- Real-world booking and rental domain logic
+
+## Key Features
+
+- User registration, authentication validation, and password updates
+- Landlord management and profile operations
+- Tenant management and verification workflows
+- Flat listing, filtering, update, and deletion support
+- Booking creation and lifecycle management
+- Role-based data handling and business validation
+- Custom exception handling for meaningful API responses
+- PostgreSQL-backed persistence with Spring Data JPA
 
 ## Tech Stack
 
@@ -22,7 +54,22 @@ The application follows a layered architecture using controllers, services, repo
 - Spring Data JPA
 - PostgreSQL
 - Maven
-- REST API architecture
+- RESTful API design
+
+## Architecture
+
+The backend follows a layered MVC-style architecture:
+
+- Controller layer: exposes REST endpoints
+- Service layer: handles business logic
+- Repository layer: manages database access
+- Entity layer: represents domain models
+- Exception layer: centralizes error handling
+
+```text
+Client -> Controller -> Service -> Repository -> PostgreSQL
+                 \-> Custom Exceptions
+```
 
 ## Project Structure
 
@@ -47,62 +94,8 @@ online-flate-rental-backend-java/
 │       ├── mvnw
 │       ├── mvnw.cmd
 │       └── .gitignore
-└── README.md
-```
-
-## Features
-
-- User registration and validation
-- Landlord management
-- Tenant management
-- Flat listing and availability handling
-- Booking creation and management
-- Business logic validation and custom exceptions
-- Database persistence using JPA and PostgreSQL
-
-## Architecture
-
-The backend follows a modular layered architecture:
-
-- Controller layer: exposes REST endpoints
-- Service layer: contains business logic
-- Repository layer: handles persistence operations
-- Entity layer: represents database models
-- Exception layer: centralizes error handling
-
-## Prerequisites
-
-Before running this project, ensure the following are installed:
-
-- JDK 17 or newer
-- Maven 3.6+
-- PostgreSQL 12 or later
-- Git
-
-## Database Configuration
-
-The application is configured to use PostgreSQL.
-
-Edit the following file:
-
-`Backend/online-flat-rental/src/main/resources/application.properties`
-
-Example configuration:
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/onlineflaterental
-spring.datasource.username=postgres
-spring.datasource.password=qwerty2234
-spring.jpa.show-sql=true
-spring.jpa.open-in-view=false
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-spring.jpa.hibernate.ddl-auto=update
-```
-
-Create the database before starting the app:
-
-```bash
-createdb onlineflaterental
+├── README.md
+└── LICENSE (if added later)
 ```
 
 ## Getting Started
@@ -120,7 +113,29 @@ cd online-flate-rental-backend-java
 cd Backend/online-flat-rental
 ```
 
-### 3. Run the project
+### 3. Configure PostgreSQL
+
+Update the datasource settings in:
+
+`Backend/online-flat-rental/src/main/resources/application.properties`
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/onlineflaterental
+spring.datasource.username=postgres
+spring.datasource.password=qwerty2234
+spring.jpa.show-sql=true
+spring.jpa.open-in-view=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+```
+
+Create the database before starting the application:
+
+```bash
+createdb onlineflaterental
+```
+
+### 4. Run the application
 
 Using Maven wrapper:
 
@@ -134,57 +149,57 @@ On Windows:
 mvnw.cmd clean spring-boot:run
 ```
 
-The backend server will run on:
+The application will start on:
 
 ```text
 http://localhost:8080
 ```
 
-## API Endpoints
+## API Modules
 
 ### User Module
 
-- `POST /user` - Create a user
-- `GET /user/{id}` - Fetch a user by ID
-- `GET /users` - Fetch all users
-- `PUT /user/{id}` - Update a user
-- `DELETE /user/{id}` - Delete a user
-- `PATCH /user/{newpass}` - Update password
-- `PATCH /user/{username}/{password}` - Validate user credentials
+- `POST /user` — create a user
+- `GET /user/{id}` — fetch a user by ID
+- `GET /users` — fetch all users
+- `PUT /user/{id}` — update a user
+- `DELETE /user/{id}` — delete a user
+- `PATCH /user/{newpass}` — update password
+- `PATCH /user/{username}/{password}` — validate credentials
 
 ### Landlord Module
 
-- `POST /landlord` - Add landlord
-- `GET /landlord/{id}` - Fetch landlord by ID
-- `GET /landlords` - Fetch all landlords
-- `PUT /landlord/{id}` - Update landlord
-- `DELETE /landlord/{id}` - Delete landlord
+- `POST /landlord` — add landlord
+- `GET /landlord/{id}` — fetch landlord by ID
+- `GET /landlords` — fetch all landlords
+- `PUT /landlord/{id}` — update landlord
+- `DELETE /landlord/{id}` — delete landlord
 
 ### Tenant Module
 
-- `POST /tenant` - Add tenant
-- `GET /tenant/{tenantId}` - Fetch tenant by ID
-- `GET /tenants` - Fetch all tenants
-- `PUT /tenant/{tenantId}` - Update tenant
-- `DELETE /tenant/{tenantId}` - Delete tenant
-- `PATCH /tenant/{tenantId}` - Validate tenant
+- `POST /tenant` — add tenant
+- `GET /tenant/{tenantId}` — fetch tenant by ID
+- `GET /tenants` — fetch all tenants
+- `PUT /tenant/{tenantId}` — update tenant
+- `DELETE /tenant/{tenantId}` — delete tenant
+- `PATCH /tenant/{tenantId}` — validate tenant
 
 ### Flat Module
 
-- `POST /flat` - Add a flat
-- `GET /flat/{flatId}` - Fetch flat by ID
-- `GET /flats` - Fetch all flats
-- `PUT /flat/{id}` - Update flat
-- `DELETE /flat/{flatId}` - Delete flat
-- `GET /flat/{cost}/{availability}` - Search by cost and availability
+- `POST /flat` — add flat
+- `GET /flat/{flatId}` — fetch flat by ID
+- `GET /flats` — fetch all flats
+- `PUT /flat/{id}` — update flat
+- `DELETE /flat/{flatId}` — delete flat
+- `GET /flat/{cost}/{availability}` — search by cost and availability
 
-### Flat Booking Module
+### Booking Module
 
-- `POST /flatbooking` - Create a booking
-- `GET /flatbooking/{id}` - Fetch booking by ID
-- `GET /flatbookings` - Fetch all bookings
-- `PUT /flatbooking/{id}` - Update booking
-- `DELETE /flatbooking/{id}` - Delete booking
+- `POST /flatbooking` — create booking
+- `GET /flatbooking/{id}` — fetch booking by ID
+- `GET /flatbookings` — fetch all bookings
+- `PUT /flatbooking/{id}` — update booking
+- `DELETE /flatbooking/{id}` — delete booking
 
 ## Example Request Body
 
@@ -214,11 +229,11 @@ http://localhost:8080
 }
 ```
 
-## Notes
+## Project Status
 
-- This is a backend-only project focused on REST API development and database integration.
-- The application is designed to be easy to understand for learning Spring Boot and JPA concepts.
-- It follows a clean structure suitable for CRUD-based projects.
+Status: In active development / backend learning project
+
+This project is a solid example of a practical Spring Boot CRUD application with domain-driven modeling and database persistence.
 
 ## License
 
@@ -226,7 +241,7 @@ This repository does not currently include a license file. Please review reposit
 
 ## Contributing
 
-Contributions are welcome. You can:
+Contributions are welcome. To contribute:
 
 1. Fork the repository
 2. Create a feature branch
@@ -235,8 +250,8 @@ Contributions are welcome. You can:
 
 ## Contact
 
-For questions or collaboration, please reach out through the repository owner on GitHub.
+For collaboration or questions, connect through the repository owner on GitHub.
 
 ---
 
-Built with Java, Spring Boot, and PostgreSQL for online flat rental management.
+Built with Java, Spring Boot, and PostgreSQL for a modern rental platform backend.
